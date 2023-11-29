@@ -18,21 +18,16 @@ class School {
   set numberOfStudents(newNumber) {
     this._numberOfStudents = newNumber
   }
-  // создать getter setter
-  // для name отдельно от numberOfStudents
-  // для name и numberOfStudents
-  // статическое свойство substituteTeachers
+
   static substituteTeachers = ['Alice', 'Bob', 'Charlie', 'David', 'Eleanor']
+
+  static chooseSubstituteTeacher() {
+    const index = Math.floor(Math.random() * (this.substituteTeachers.length - 1))
+    return this.substituteTeachers[index]
+  }
 }
 
 const firstSchool = new School({ name: 'first', numberOfStudents: 240, level: 'primary' })
-console.log(firstSchool)
-firstSchool.name = 'another'
-console.log(firstSchool)
-// создаем класс Primary от School
-// constructor / super
-// не забываем параметр в констр
-// pickupPolicy обычное свойство
 
 class Primary extends School {
   constructor(props) {
@@ -40,17 +35,28 @@ class Primary extends School {
     this.pickupPolicy = props.pickupPolicy
   }
 }
+// Наследуем статические свойства и методы от Родительского Класса
+
 const firstPrimarySchool = new Primary({
   name: 'first',
   numberOfStudents: 240,
   level: 'primary',
   pickupPolicy: 'after 17:00',
 })
-console.log(firstPrimarySchool)
-// properties - props - свойства
-// от 10 до 2 часа
-//html до redux
 
-// блиц от hr
-// теория + live codding - задача с codewars - 6-8
-// react  компонент
+console.log(firstPrimarySchool.name)
+// Записываем в прототип свойство city кот доступно всем экземплярам класса
+School.prototype.city = 'Berlin'
+School.prototype.informationAboutSchool = function () {
+  console.log(`In school ${this._name} there are ${this._numberOfStudents} students`)
+}
+// Через прототип создать функцию которая будет увеличивать количество сутдентов на один
+// addNewStudent
+
+School.prototype.addNewStudent = function () {
+  this.numberOfStudents += 1
+}
+
+firstPrimarySchool.addNewStudent()
+firstPrimarySchool.addNewStudent()
+firstPrimarySchool.addNewStudent()
